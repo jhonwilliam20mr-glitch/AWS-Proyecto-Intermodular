@@ -4,15 +4,26 @@ dnf install -y docker
 systemctl enable --now docker
 mkdir -p /home/ec2-user/app && cd /home/ec2-user/app
 
-# Crear config de Nginx
+# Crear config de Nginx como Balanceador de Carga
 cat <<EOF > nginx.conf
 events {}
 http {
+    upstream nextcloud_backend {
+        server 10.0.2.100:80; # Nodo Privado 1
+        server 10.0.2.200:80; # Nodo Privado 2
+    }
+
     server {
         listen 80;
         location /gitea/ { proxy_pass http://gitea:3000/; }
         location /vscode/ { proxy_pass http://vscode:8080/; }
-        location /nextcloud/ { proxy_pass http://10.0.2.100/; } # IP fija de la privada
+        
+        location /nextcloud/ { 
+            proxy_pass http://nextcloud_backend/; 
+            proxy_set_header Host \$host;
+            proxy_set_header X-Real-IP \$remote_addr;
+            proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        }
     }
 }
 EOF
