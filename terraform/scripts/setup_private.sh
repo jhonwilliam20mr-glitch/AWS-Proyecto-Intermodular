@@ -23,5 +23,7 @@ services:
       - NEXTCLOUD_ADMIN_USER=admin
       - NEXTCLOUD_ADMIN_PASSWORD=ProyectoNC123
       - NEXTCLOUD_TRUSTED_DOMAINS=*
+      # --- CONTROL DE ACCESO ESTRICTO ---
+      - TRUSTED_PROXIES=10.0.1.0/24  # Solo acepta peticiones que vengan de la subred pública (Nginx)
 EOF
 docker compose up -d
