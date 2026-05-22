@@ -14,7 +14,7 @@ resource "aws_instance" "private_node_1" {
   instance_type          = "t3.small"
   subnet_id              = aws_subnet.private.id
   private_ip             = "10.0.2.100"
-  user_data              = file("scripts/setup_private_1.sh")
+  user_data              = file("scripts/setup_private.sh")
   vpc_security_group_ids = [aws_security_group.allow_internal.id]
   key_name               = "vockey"
 }
