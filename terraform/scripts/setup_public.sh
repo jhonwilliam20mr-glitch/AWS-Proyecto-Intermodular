@@ -9,8 +9,8 @@ cat <<EOF > nginx.conf
 events {}
 http {
     upstream nextcloud_backend {
-        server 10.0.2.100:80; # Nodo Privado 1
-        server 10.0.2.200:80; # Nodo Privado 2
+        server 10.0.2.110:80; # Nodo Privado 1
+        server 10.0.2.120:80; # Nodo Privado 2
     }
 
     server {
