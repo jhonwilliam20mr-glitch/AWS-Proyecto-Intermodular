@@ -4,7 +4,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "aws-proyecto-intermodular-tfstate"
+    bucket = "bucket-proyecto-1"
     key    = "demo/nextcloud.tfstate"
     region = "us-east-1"
   }
