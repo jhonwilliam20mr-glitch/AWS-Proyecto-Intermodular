@@ -40,6 +40,7 @@ services:
     ports: ["3000:3000"]
   vscode:
     image: codercom/code-server:latest
+    ports: ["8080:8080"]
     environment: ["PASSWORD=demo123"]
 EOF
 docker compose up -d
