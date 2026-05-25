@@ -1,6 +1,6 @@
 #!/bin/bash
 dnf update -y
-dnf install -y docker
+dnf install -y docker docker-compose-plugin
 systemctl enable --now docker
 mkdir -p /home/ec2-user/nextcloud && cd /home/ec2-user/nextcloud
 
