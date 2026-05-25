@@ -1,34 +1,34 @@
 #!/bin/bash
 
 # Actualizar paquetes
-apt-get update -y
+apt-get update -y 2>>
 
 # Instalar dependencias necesarias
-apt-get install -y ca-certificates curl gnupg
+apt-get install -y ca-certificates curl gnupg 2>>
 
 # Crear carpeta para claves GPG
-install -m 0755 -d /etc/apt/keyrings
+install -m 0755 -d /etc/apt/keyrings 2>>
 
 # Descargar clave GPG oficial de Docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+gpg --dearmor -o /etc/apt/keyrings/docker.gpg 2>>
 
 # Añadir repositorio oficial Docker
 echo \
 "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
 https://download.docker.com/linux/ubuntu \
 $(. /etc/os-release && echo "$UBUNTU_CODENAME") stable" | \
-tee /etc/apt/sources.list.d/docker.list > /dev/null
+tee /etc/apt/sources.list.d/docker.list > /dev/null 
 
 # Actualizar repositorios nuevamente
-apt-get update -y
+apt-get update -y 2>>
 
 # Instalar Docker y Docker Compose
-apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin 2>>
 
 # Activar Docker
-systemctl enable docker
-systemctl start docker
+systemctl enable docker 2>>
+systemctl start docker 2>>
 
 # Crear directorio de la app
 mkdir -p /home/ec2-user/app
