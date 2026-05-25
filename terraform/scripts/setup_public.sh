@@ -1,5 +1,6 @@
 #!/bin/bash
 dnf update -y
+dnf install -y docker
 sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 systemctl enable --now docker
