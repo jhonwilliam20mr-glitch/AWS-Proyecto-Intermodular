@@ -87,7 +87,7 @@ services:
 
     environment:
       - PASSWORD=demo123
-
+restart: always
 EOF
 
 # ---------------------------
