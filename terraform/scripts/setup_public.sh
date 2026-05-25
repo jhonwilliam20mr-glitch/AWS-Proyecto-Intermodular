@@ -1,7 +1,6 @@
 #!/bin/bash
-dnf update -y
-dnf install -y docker-ce
-chmod +x /usr/local/bin/docker-compose
+apt update -y
+apt install -y docker docker-compose
 systemctl enable --now docker
 mkdir -p /home/ec2-user/app && cd /home/ec2-user/app
 
