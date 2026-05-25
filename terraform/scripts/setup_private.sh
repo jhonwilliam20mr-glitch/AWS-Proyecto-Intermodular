@@ -12,5 +12,6 @@ services:
       - POSTGRES_PASSWORD=nc_pass
       - POSTGRES_DB=nextcloud
       - POSTGRES_USER=nextcloud
+      ports: ["5432:5432"]
 EOF
 docker compose up -d
