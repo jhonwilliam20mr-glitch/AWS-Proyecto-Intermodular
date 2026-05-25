@@ -1,7 +1,6 @@
 #!/bin/bash
 dnf update -y
-dnf install -y docker
-sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 systemctl enable --now docker
 mkdir -p /home/ec2-user/app && cd /home/ec2-user/app
@@ -44,8 +43,8 @@ services:
     ports: ["80:80"]
     volumes: ["./nginx.conf:/etc/nginx/nginx.conf:ro"]
     depends-on:
-     - gitea
-     - vscode
+     gitea
+     vscode
   gitea:
     image: gitea/gitea:latest
     ports: ["3000:3000"]
