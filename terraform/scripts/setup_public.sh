@@ -1,6 +1,6 @@
 #!/bin/bash
-apt update -y
-apt install -y docker docker-compose
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 systemctl enable --now docker
 mkdir -p /home/ec2-user/app && cd /home/ec2-user/app
 
