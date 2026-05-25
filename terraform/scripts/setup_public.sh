@@ -1,33 +1,15 @@
 #!/bin/bash
 
-# ---------------------------
-# ACTUALIZAR SISTEMA
-# ---------------------------
+# Instala pip si no lo tienes
+sudo dnf install -y python3-pip
 
-dnf update -y
-
-# ---------------------------
-# INSTALAR DOCKER
-# ---------------------------
-
-dnf install -y docker
+# Instala Docker Compose
+sudo pip3 install docker-compose
 
 # Iniciar Docker
 systemctl enable docker
 systemctl start docker
 
-# ---------------------------
-# INSTALAR DOCKER COMPOSE
-# ---------------------------
-
-curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 \
--o /usr/local/bin/docker-compose
-
-chmod +x /usr/local/bin/docker-compose
-
-# ---------------------------
-# CREAR DIRECTORIO APP
-# ---------------------------
 
 mkdir -p /home/ec2-user/app
 cd /home/ec2-user/app
