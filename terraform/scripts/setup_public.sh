@@ -1,10 +1,7 @@
 #!/bin/bash
-
+yum update -y
 # Instala pip si no lo tienes
-sudo dnf install -y python3-pip
-
-# Instala Docker Compose
-sudo pip3 install docker-compose
+yum install -y docker docker-compose
 
 # Iniciar Docker
 systemctl enable docker
