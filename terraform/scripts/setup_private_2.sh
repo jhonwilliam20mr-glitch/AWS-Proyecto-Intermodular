@@ -17,5 +17,6 @@ services:
       - NEXTCLOUD_TRUSTED_DOMAINS=*
        # --- CONTROL DE ACCESO ESTRICTO ---
       - TRUSTED_PROXIES=10.0.1.0/24  # Solo acepta peticiones que vengan de la subred pública (Nginx)
+    restart: always
 EOF
 docker compose up -d
