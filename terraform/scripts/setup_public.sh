@@ -1,36 +1,34 @@
 #!/bin/bash
 
-# Actualizar paquetes
-apt-get update -y 2>> errores.txt
+# ---------------------------
+# ACTUALIZAR SISTEMA
+# ---------------------------
 
-# Instalar dependencias necesarias
-apt-get install -y ca-certificates curl gnupg 2>> errores.txt
+dnf update -y
 
-# Crear carpeta para claves GPG
-install -m 0755 -d /etc/apt/keyrings 2>> errores.txt
+# ---------------------------
+# INSTALAR DOCKER
+# ---------------------------
 
-# Descargar clave GPG oficial de Docker
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-gpg --dearmor -o /etc/apt/keyrings/docker.gpg 2>> errores.txt
+dnf install -y docker
 
-# Añadir repositorio oficial Docker
-echo \
-"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
-https://download.docker.com/linux/ubuntu \
-$(. /etc/os-release && echo "$UBUNTU_CODENAME") stable" | \
-tee /etc/apt/sources.list.d/docker.list > /dev/null 
+# Iniciar Docker
+systemctl enable docker
+systemctl start docker
 
-# Actualizar repositorios nuevamente
-apt-get update -y 2>> errores.txt
+# ---------------------------
+# INSTALAR DOCKER COMPOSE
+# ---------------------------
 
-# Instalar Docker y Docker Compose
-apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin 2>> errores.txt
+curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 \
+-o /usr/local/bin/docker-compose
 
-# Activar Docker
-systemctl enable docker 2>> errores.txt
-systemctl start docker 2>> errores.txt
+chmod +x /usr/local/bin/docker-compose
 
-# Crear directorio de la app
+# ---------------------------
+# CREAR DIRECTORIO APP
+# ---------------------------
+
 mkdir -p /home/ec2-user/app
 cd /home/ec2-user/app
 
@@ -65,6 +63,7 @@ http {
         }
 
         location /nextcloud/ {
+
             proxy_pass http://nextcloud_backend/;
 
             proxy_set_header Host \$host;
@@ -112,5 +111,8 @@ services:
 
 EOF
 
-# Levantar contenedores
-docker compose up -d
+# ---------------------------
+# LEVANTAR CONTENEDORES
+# ---------------------------
+
+docker-compose up -d
