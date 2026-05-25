@@ -41,6 +41,9 @@ services:
     image: nginx:latest
     ports: ["80:80"]
     volumes: ["./nginx.conf:/etc/nginx/nginx.conf:ro"]
+    depends-on:
+     - gitea
+     - vscode
   gitea:
     image: gitea/gitea:latest
     ports: ["3000:3000"]
