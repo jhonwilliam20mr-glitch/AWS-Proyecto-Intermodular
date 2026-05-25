@@ -1,6 +1,6 @@
 #!/bin/bash
 dnf update -y
-dnf install -y docker
+dnf install -y docker docker-compose-plugin
 systemctl enable --now docker
 mkdir -p /home/ec2-user/app && cd /home/ec2-user/app
 
@@ -15,9 +15,15 @@ http {
 
     server {
         listen 80;
-        location /gitea/ { proxy_pass http://gitea:3000/; }
-        location /vscode/ { proxy_pass http://vscode:8080/; }
-        
+        resolver 127.0.0.1 valid=10s;
+        location /gitea/{
+        set \$gitea http://gitea:3000;
+        proxy_pass \$gitea/;
+        }
+        location /vscode/{
+        set \$vscode http://vscode:8080;
+        proxy_pass \$vscode/;
+        }
         location /nextcloud/ { 
             proxy_pass http://nextcloud_backend/; 
             proxy_set_header Host \$host;
